@@ -1,3 +1,20 @@
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+@font-face {
+  font-family: 'DS-Digital';
+  src: url(../public/fonts/font/digital-7.ttf);
+}
+
+.h1{
+  font-family: 'DS-Digital', sans-serif;
+  font-size: 6rem;
+}
+
 .App {
   text-align: center;
 }
