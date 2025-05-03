@@ -4,7 +4,7 @@ import "./App.css";
 function App() {
   let work = true;
   let timerRef = useRef(null)
-  let [min, setMin] = useState(1);
+  let [min, setMin] = useState(25);
   let [sec, setSec] = useState(0);
   let [started, setStarted] = useState(false);
 
@@ -13,13 +13,11 @@ function App() {
       setMin(4)
       setSec(59)
       work = false
-      console.log(min , ':' , sec)
     }
     else{
       if(min == 0){
         setSec(--sec)
         if(sec == 0){
-          console.log(sec , 'is 0')
           setMin(24)
           setSec(59)
         }
@@ -48,13 +46,12 @@ function App() {
     }
     timerRef.current = setInterval(() => {
       decreaseSec();
-    }, 700);
+    }, 1000);
     setStarted(true);
   }
 
   function stop() {
     if(started){
-      console.log('STOP')
       clearInterval(timerRef.current)
       setStarted(false)
     }
