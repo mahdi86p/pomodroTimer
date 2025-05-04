@@ -2,41 +2,25 @@ import React, { useState, useRef } from "react";
 import "./App.css";
 
 function App() {
-  let work = true;
-  let timerRef = useRef(null)
-  let [min, setMin] = useState(25);
-  let [sec, setSec] = useState(0);
+  const timerRef = useRef(null);
+  // let [work, setWork] = useState(true);
+  let [min, setMin] = useState(2);
+  let [sec, setSec] = useState(21);
   let [started, setStarted] = useState(false);
 
-  function decreaseSec() {
-    if(min == 0 && sec == 0 && work == true){
-      setMin(4)
-      setSec(59)
-      work = false
-    }
-    else{
-      if(min == 0){
-        setSec(--sec)
-        if(sec == 0){
-          setMin(24)
-          setSec(59)
-        }
-      }
-      else{
-        if (sec == 0) {
-          decreaseMin();
-          setSec(59);
-          sec = 59
-        }
-        else{
-          setSec(--sec)
-        }
-      }
-    }
+  function decreaseMin() {
+    setMin(min - 1);
   }
 
-  function decreaseMin() {
-    setMin(--min);
+  function decreaseSec() {
+    if (sec <= 0) {
+      decreaseMin()
+      setSec(59)
+      sec = 59
+    } else {
+      setSec(sec -= 1);
+      console.log(sec)
+    }
   }
 
   function start() {
@@ -46,22 +30,27 @@ function App() {
     }
     timerRef.current = setInterval(() => {
       decreaseSec();
-    }, 1000);
+    }, 800);
     setStarted(true);
   }
 
   function stop() {
-    if(started){
-      clearInterval(timerRef.current)
-      setStarted(false)
+    if (started) {
+      clearInterval(timerRef.current);
+      setStarted(false);
     }
   }
 
   return (
     <div className="App">
       <div className="h1" id="clock">
-        <span className="Min">{min < 10 ? (min = "0" + min) : min}</span>:
-        <span className="Sec">{sec < 10 ? (sec = "0" + sec) : sec}</span>
+        <span className="Min">
+          {min < 10 ? min.toString().padStart(2, 0) : min}
+        </span>
+        :
+        <span className="Sec">
+          {sec < 10 ? sec.toString().padStart(2, 0) : sec}
+        </span>
       </div>
       <button className="btn btn-primary m-2" onClick={() => start()}>
         Start
