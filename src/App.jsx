@@ -1,25 +1,59 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./App.css";
 
 function App() {
   const timerRef = useRef(null);
-  // let [work, setWork] = useState(true);
-  let [min, setMin] = useState(2);
-  let [sec, setSec] = useState(21);
+  let [work, setWork] = useState(true);
+  let [min, setMin] = useState(25);
+  let [sec, setSec] = useState(0);
   let [started, setStarted] = useState(false);
 
+  useEffect(() => {
+    document.title = work ? "Work Work Work!" : "Rest Time";
+  }, [work]);
+
   function decreaseMin() {
-    setMin(min - 1);
+    setMin((min = --min));
   }
+  // decrease min function
 
   function decreaseSec() {
-    if (sec <= 0) {
-      decreaseMin()
-      setSec(59)
-      sec = 59
-    } else {
-      setSec(sec -= 1);
-      console.log(sec)
+    // setSec((sec) => --sec);
+    setSec(--sec);
+    console.log(sec);
+  }
+  // decrease sec function
+
+  function runTimer() {
+    if (min == 0) {
+      if (sec == 0) {
+        // work?
+        if (work) {
+          setMin((min = 5));
+          setSec((sec = 0));
+          setWork((work = false));
+        }
+
+        // rest?
+        else {
+          setMin((min = 25));
+          setSec((sec = 0));
+          setWork((work = true));
+        }
+      }
+      else{
+        decreaseSec();
+      }
+    }
+
+    // min !== 0
+    else {
+      if (sec <= 0) {
+        decreaseMin();
+        setSec((sec = 59));
+      } else {
+        decreaseSec();
+      }
     }
   }
 
@@ -29,8 +63,8 @@ function App() {
       return;
     }
     timerRef.current = setInterval(() => {
-      decreaseSec();
-    }, 800);
+      runTimer();
+    }, 1000);
     setStarted(true);
   }
 
