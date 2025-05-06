@@ -29,14 +29,14 @@ function App() {
       if (sec == 0) {
         // work?
         if (work) {
-          setMin((min = 5));
+          setMin((min = 25));
           setSec((sec = 0));
           setWork((work = false));
         }
 
         // rest?
         else {
-          setMin((min = 25));
+          setMin((min = 5));
           setSec((sec = 0));
           setWork((work = true));
         }
