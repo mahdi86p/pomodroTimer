@@ -5,7 +5,7 @@ function App() {
   const timerRef = useRef(null);
   let [work, setWork] = useState(true);
   let [min, setMin] = useState(25);
-  let [sec, setSec] = useState(0);
+  let [sec, setSec] = useState(5);
   let [started, setStarted] = useState(false);
 
   useEffect(() => {
@@ -13,14 +13,13 @@ function App() {
   }, [work]);
 
   function decreaseMin() {
-    setMin((min = --min));
+    setMin(--min);
   }
   // decrease min function
 
   function decreaseSec() {
     // setSec((sec) => --sec);
     setSec(--sec);
-    console.log(sec);
   }
   // decrease sec function
 
